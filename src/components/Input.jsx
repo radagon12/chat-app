@@ -17,8 +17,10 @@ const Input = () => {
   const {currentUser} = useContext(AuthContext)
   const {data} = useContext(ChatContext) 
   
-  const handleSend = async () =>
+  const handleSend = async (ev) =>
   {
+    ev.preventDefault();
+
     if(img)
     {
       const storageRef = ref(storage, uuid());
@@ -83,7 +85,7 @@ const Input = () => {
   }
   
   return (
-    <div className='input'>
+    <form className='input' onSubmit={handleSend}>
       <input type="text" placeholder='Type something...' onChange={e=>setText(e.target.value)} value={text}/>
       <div className="send">
         <img src={Attach} alt="" />
@@ -91,9 +93,9 @@ const Input = () => {
         <label htmlFor="file">
           <img src={Img} alt="" />
         </label>
-        <button onClick={handleSend}>send</button>
+        <button type='submit'>send</button>
       </div>
-    </div>
+    </form>
   )
 }
 
